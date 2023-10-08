@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/MarkerCluster.css">
+    <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+    <link rel="stylesheet" href="css/leaflet-control-credits.css" />
+    <link rel="stylesheet" href="css/leaflet-measure.css">
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <title></title>
+</head>
+
+<body>
+    <div id="map">
+    </div>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/L.Control.Locate.min.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet.markercluster.js"></script>
+    <script src="js/leaflet-control-credits.js"></script>
+    <script src="data/DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1.js"></script>
+    <script>
+        var map = L.map('map', {
+            zoomControl: true, maxZoom: 28, minZoom: 1
+        }).fitBounds([[-2.3267080389071064, 113.81016994407], [-2.155812647395396, 114.14818876113884]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://disperkimtan.palangkaraya.go.id/" target="_blank">DISPERKIMTAN</a> &middot; <a href="http://palangkaraya.go.id/" title="Pemerintah Kota Palangka Raya">PALANGKA RAYA</a>');
+        var autolinker = new Autolinker({ truncate: { length: 30, location: 'smart' } });
+        L.control.locate({ locateOptions: { maxZoom: 19 } }).addTo(map);
+        credits = L.controlCredits({
+            imageurl: 'images/logo web.png',
+            imagealt: 'SIMANTAN',
+            tooltip: 'Made by DISPERKIMTAN',
+            width: '120px',
+            height: '110%',
+            expandcontent: 'Interactive mapping<br/>by <a href="https://disperkimtan.palangkaraya.go.id/" target="_blank">DISPERKIMTAN KOTA PALANGKA RAYA</a>',
+        }).addTo(map);
+        var sentral = L.control({ position: "bottomright" });
+        sentral.onAdd = function (map) {
+            var div = L.DomUtil.create("div", "info legend");
+            div.innerHTML = '<img width="100" src="images/logo web.png">';
+            return div;
+        }
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMHumanitarianDataModel_0');
+        map.getPane('pane_OSMHumanitarianDataModel_0').style.zIndex = 400;
+        var layer_OSMHumanitarianDataModel_0 = L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMHumanitarianDataModel_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_OSMHumanitarianDataModel_0;
+        map.addLayer(layer_OSMHumanitarianDataModel_0);
+        function pop_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMOR PETA</th>\
+                        <td colspan="2">' + (feature.properties['NOMOR'] !== null ? autolinker.link(feature.properties['NOMOR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NAMA</th>\
+                        <td colspan="2">' + (feature.properties['NAMA'] !== null ? autolinker.link(feature.properties['NAMA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ALAMAT</th>\
+                        <td colspan="2">' + (feature.properties['ALAMAT'] !== null ? autolinker.link(feature.properties['ALAMAT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LUAS (M2)</th>\
+                        <td colspan="2">' + (feature.properties['LUAS'] !== null ? autolinker.link(feature.properties['LUAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PERUNTUKAN</th>\
+                        <td colspan="2">' + (feature.properties['PERUNTUKAN'] !== null ? autolinker.link(feature.properties['PERUNTUKAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PEMANFAATAN</th>\
+                        <td colspan="2">' + (feature.properties['PEMANFAATAN'] !== null ? autolinker.link(feature.properties['PEMANFAATAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PROSES PERALIHAN HAK</th>\
+                        <td colspan="2">' + (feature.properties['PROSES PERALIHAN HAK'] !== null ? autolinker.link(feature.properties['PROSES PERALIHAN HAK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LAPOR MANTAN</th>\
+                        <td colspan="2">' + (feature.properties['LAPOR MANTAN'] !== null ? autolinker.link(feature.properties['LAPOR MANTAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, { maxHeight: 400 });
+        }
+
+        function style_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1_0() {
+            return {
+                pane: 'pane_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,113,72,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1');
+        map.getPane('pane_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1').style.zIndex = 401;
+        map.getPane('pane_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1').style['mix-blend-mode'] = 'normal';
+        var layer_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1 = new L.geoJson(json_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1',
+            layerName: 'layer_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1',
+            pane: 'pane_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1',
+            onEachFeature: pop_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1_0(feature));
+            },
+        });
+        var cluster_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1 = new L.MarkerClusterGroup({
+            showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2
+        });
+        cluster_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1.addLayer(layer_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1);
+
+        bounds_group.addLayer(layer_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1);
+        cluster_DATAFASOSFASUM_test2data_fasos_fasum_test__data_fasos_fasum_1.addTo(map);
+        setBounds();
+    </script>
+</body>
+
+</html>
